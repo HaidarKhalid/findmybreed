@@ -1,0 +1,357 @@
+@import url('https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap');
+
+:root { /* This is for light mode */
+    --main: #fcf3e8; /* #272625 */
+    --secound: #fff; /* #171717 #cbcbcb*/
+    --textColorMain: #000; /* #fff */
+    --textColorMainRGBA: rgba(0,0,0,0.5); /*rgba(255, 255, 255,0.5) */
+    --blendMode: normal; /* soft-light */
+
+}
+
+*,*::after, *::before {
+    margin: 0;
+    padding: 0;
+    font-family: 'Agdasima', sans-serif;
+}
+
+body {
+    background-color: var(--main);
+    color: var(--textColorMain);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url(media/images/Background-removebg.png);
+    background-position: center;
+    background-blend-mode:var(--blendMode);
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+#container {
+    background-color: rgba(255, 255, 255, 0.272);
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 25px 35px;
+    max-width: 75vw;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 100px;
+    gap: 2vw;
+    flex-direction: column;
+    /* flex-direction: row; */
+}
+.card {
+    width: 100px;
+    height: 100px;
+    background-color: var(--secound);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 3px solid black;
+
+}
+
+
+
+.catImg {
+    z-index: 1;
+    width: 90%;
+    mix-blend-mode: multiply;
+}
+.flipped {
+    transition: 0.8s;
+    animation: forwards 0.8s flipCard;
+}
+.flipped img {
+    transition: 0.8s;
+    display: inline-block;
+    opacity: 1;
+}
+
+
+@keyframes flipCard {
+    0% {transform: rotateY(0deg);}
+    100% {transform: rotateY(180deg);}
+}
+.unflipped {
+    animation: forwards 0.8s unFlipCard;
+}
+.unflipped img {
+    transition: 0.8s;
+    display: none;
+    opacity: 0;
+}
+
+@keyframes unFlipCard {
+    0% {transform: rotateY(180deg);}
+    100% {transform : rotateY(0deg);}
+}
+
+
+
+
+
+
+
+/* Main Menu */
+
+.mainMenuBtn {
+    font-family: 'Agdasima', sans-serif;
+    background-color: var(--main);
+    color: var(--textColorMain);
+    border: 3px solid black;
+    border-radius: 10px;
+    font-size: 25px;
+    width: 200px;
+    height: 75px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.15s;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainMenuBtn:hover {
+    background-color: #fcf3e8;
+    color: grey;
+}
+
+
+.topH1 {
+    border: 3px solid black;
+    padding: 10px 5px;
+    background-color: #c9c9c95a;
+    position: absolute;
+    top: 40px; 
+    left: -3px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.topName {
+    margin-top: 10px;
+    text-decoration: underline 3px var(--textColorMain);
+    color: var(--textColorMain); 
+    cursor: pointer;
+}
+
+.timeRemaining {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    color: var(--textColorMain);
+}
+
+.levelBtn {
+    background-color: rgba(119, 119, 119, 0.662);
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 3px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+}
+.rangeInp {
+    position: relative;
+    top: 10px;
+}
+.rangeInp::after, .rangeInp::before {
+    top: -10px;
+    position: absolute;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--textColorMain);
+    -webkit-text-stroke: 0.3px var(--main);
+}
+.rangeInp::before {
+    content: "Off";
+    left: -29px;
+}
+
+.rangeInp::after {
+    content: "On";
+    right: -29px;
+}
+/*Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .rangeInp[type='range'] {
+      width: 130px;
+      height: 11px;
+      -webkit-appearance: none;
+      background-color: var(--textColorMain);
+      cursor: pointer;
+      border-radius: 25px;
+    }
+    
+    .rangeInp[type='range']::-webkit-slider-thumb {
+      width: 65px;
+      -webkit-appearance: none;
+      height: 15px;
+      border-radius: 25px;
+      background-color: #838383;
+    }
+
+}
+/** FF*/
+.rangeInp[type="range"]::-moz-range-progress {
+  background-color: var(--main); 
+}
+.rangeInp[type="range"]::-moz-range-track {  
+  background-color: #272625;
+}
+/* IE*/
+.rangeInp[type="range"]::-ms-fill-lower {
+  background-color: var(--main); 
+}
+.rangeInp[type="range"]::-ms-fill-upper {  
+  background-color: #272625;
+}
+
+
+
+.settingDiv {
+    text-align: center;
+    margin-top: 10px;
+}
+.deleteSaveGameBtn {
+    width: 100%;
+    padding: 10px 10px;
+    font-size: 20px;
+    border: 2px solid black;
+    background-color: red;
+    font-weight: bold;
+    color: var(--textColorMain);
+    border-radius: 5px;
+}
+.deleteSaveGameBtn:hover {
+    transition: 0.15s;
+    background-color: darkred;
+}
+
+.winOrLosePopUp {
+    border: 3px solid black;
+    border-radius: 5px;
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20%;
+    background: var(--textColorMainRGBA);
+    z-index: 1;
+    color: var(--main);
+    backdrop-filter: blur(25px);
+}
+.winOrLosePopUp h1 {
+    font-weight: bold;
+    font-size: 40px;
+    color: var(--textColorMain);
+}
+.winOrLosePopUpButtonsDiv {
+    display: flex;
+    justify-content: space-evenly;
+    min-width: 50%;
+    gap: 10px;
+}
+.winOrLosePopUpButtonsDiv button {
+    min-width: 20%;
+    padding: 20px 10px;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--main);
+    color: var(--textColorMain);
+    cursor: pointer;
+}
+
+.levelDiffcultyPopUp {
+    position: fixed;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: var(--textColorMainRGBA);
+    backdrop-filter: blur(10px);
+    color: var(--main);
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.5s;
+    top: 10%;
+    right: 10%;
+    left: 10%;
+    bottom: 10%;
+}
+/* @keyframes popup {
+    0% {
+        top: 100%;
+        right: 100%;
+        left: 100%;
+        bottom: 100%;
+    }
+    100% {
+        top: 10%;
+        right: 10%;
+        left: 10%;
+        bottom: 10%;
+    }
+} */
+
+.topOfLDPU {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    color: var(--textColorMain);
+}
+.hideLDPUBtn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 30px;
+    border: none;
+    background-color: transparent;
+    font-weight: bolder;
+    color: red;
+    -webkit-text-stroke: 1px var(--main);
+    cursor: pointer;
+}
+.bottomOfLPDU button {
+    min-width: 50px;
+    padding: 6px 12px;
+    font-size: 20px;
+    border: 1px solid black;
+    box-shadow: 0 0 2px black;
+    font-weight: bold;
+    cursor: pointer;
+}
+.bottomOfLPDU button:hover {
+    transition: 0.15s;
+    box-shadow: 0 0 5px rgb(169, 169, 169);
+}
+.topDiv {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+.topLevelH3 {
+    position: absolute;
+    bottom: -100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--textColorMain);
+    font-size: 23px;
+    text-decoration: underline 2px var(--textColorMain);
+}
