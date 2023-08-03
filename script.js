@@ -58,6 +58,14 @@ let flipCardsDelay;
 // sfx on = true, off = false
 let sfxMode = true;
 
+// set the default values for the dark mode and sfx mode settings
+let darkLightModeInputValue = 0;
+let sfxModeInputValue = 1;
+
+// get the root info from html to use it in darkLightModeFunction
+let root = document.querySelector(":root");
+let rootStyles = getComputedStyle(root);
+
 // save cards parameter for "putCards" function
 let saveCardsQuantity;
 let saveWaitTime;
@@ -144,7 +152,7 @@ function putCards(cardsQuantity, waitTime, hearts, thisLevel, difficulty) {
       // first card
       cards[
         randomCardFirst
-      ].innerHTML = `<img class="catImg" src="media/images/types/${
+      ].innerHTML = `<img class="catImg" onload="console.log('loaded')" src="media/images/types/${
         uniqueNum + 1
       }.png" alt="cat${uniqueNum + 1}">`;
       // secound card
@@ -323,17 +331,14 @@ function check(x) {
     }
   }
   // after finishing all of the cards we should view a popup and save the new level
-  if (cardsChecked.length * 2 == cards.length && saveCurrentLevelPlaying < 11) {
+  if (cardsChecked.length * 2 == cards.length) {
     // a short cut for the new level info to make the code more easier
     let coclp = cardsOptions[saveCurrentLevelPlaying];
 
-    // show the popup with the info
-    document.querySelector(".winOrLosePopUp").style = "display: flex;";
-    document.querySelector(".winOrLosePopUp").innerHTML = `
-    <h1>Level completed!</h1>
-    <div class="winOrLosePopUpButtonsDiv">
-      <button onclick="showMainMenu()">Main Manu</button> 
-      <button onclick="putCards(${coclp[0]}, ${
+
+    // set a varible for this html btn to make it easier 
+    let btnHtml = `
+    <button onclick="putCards(${coclp[0]}, ${
       saveDifficulty == "Easy"
         ? coclp[1]
         : saveDifficulty == "Medium"
@@ -343,164 +348,167 @@ function check(x) {
             : coclp[1]
     }, ${
       coclp[4]
-    }, ${++saveCurrentLevelPlaying},'${saveDifficulty}')">Next level [${saveDifficulty}]</button>
-    `;
+    }, ${++saveCurrentLevelPlaying},'${saveDifficulty}')">Next level [${saveDifficulty}]</button>`
 
-    if (localStorage.getItem('saveGameLevel') < saveCurrentLevelPlaying){
+    // show the popup with the info
+    document.querySelector(".winOrLosePopUp").style = "display: flex;";
+    document.querySelector(".winOrLosePopUp").innerHTML = `
+    <h1>Level completed!</h1>
+    <div class="winOrLosePopUpButtonsDiv">
+      <button onclick="showMainMenu()">Main Manu</button> 
+
+    ${saveCurrentLevelPlaying < 11 ? btnHtml : ''}
+    `
+    ;
+    // unlock the next level
+    if (localStorage.getItem('saveGameLevel') < saveCurrentLevelPlaying && saveCurrentLevelPlaying < 11){
       localStorage.setItem('saveGameLevel', Number(localStorage.getItem('saveGameLevel')) + 1)
     }
 
 
 
-    // you know that
+    // you know that (:
     if (sfxMode) {
       winSfx.play();
     }
-  } else if (cardsChecked.length * 2 == cards.length && saveCurrentLevelPlaying >= 11) {
-        // show the popup with the info
-        document.querySelector(".winOrLosePopUp").style = "display: flex;";
-        document.querySelector(".winOrLosePopUp").innerHTML = `
-        <h1>Level completed!</h1>
-        <div class="winOrLosePopUpButtonsDiv">
-          <button onclick="showMainMenu()">Main Manu</button> 
-        </div>
-        `;
-    
-        if (localStorage.getItem('saveGameLevel') < saveCurrentLevelPlaying){
-          localStorage.setItem('saveGameLevel', Number(localStorage.getItem('saveGameLevel')) + 1)
-        }
-    
-    
-    
-        // you know that
-        if (sfxMode) {
-          winSfx.play();
-        }
   }
 }
 
-/! main menu !/;
+/! menus !/;
 
-function lC(rule, elseStatment, levelNum) {
+
+// level verifier, a shortcut for this else if one line statemenet, we will use it many times so that an easy way to read it
+function lV(ifStatement, elseStatment, levelNum) {
   return `${
-    localStorage.getItem("saveGameLevel") >= levelNum ? rule : elseStatment
+    localStorage.getItem("saveGameLevel") >= levelNum ? ifStatement : elseStatment
   }`;
 }
 
+// when clicking play show all of the levels
 function showLevels() {
-  let currentSaveLevel = localStorage.getItem("saveGameLevel");
+  // make it in row for a better view
   containerEl.style = "flex-direction: row;";
+
+  // colors to know which level is unlocked and which is not 
   let enablebgcolor = "background: rgba(241, 241, 241, 0.911);";
   let disablebgcolor = "background: rgba(119, 119, 119, 0.662);";
 
-  containerEl.innerHTML = `
-  <button onclick="${lC(
+
+  //  here will start the levels viwer, if the level is unlocked it will be white, and if you clicked on it its gonna sho you the difficulties popup
+   containerEl.innerHTML = `
+  <button onclick="${lV(
     "showLevelDifficulties(6, 3, 2, 1, 1, 1)",
     "return",
     1
-  )}" style="${lC(
+  )}" style="${lV(
     enablebgcolor,
     disablebgcolor,
     1
   )}" class="levelBtn">1</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(8, 4, 3, 2, 2, 2)",
     "return",
     2
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     2
   )}"  class="levelBtn">2</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(12, 9, 7, 5, 3, 3)",
     "return",
     3
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     3
   )}"  class="levelBtn">3</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(18, 17, 13, 10, 6, 4)",
     "return",
     4
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     4
   )}"  class="levelBtn">4</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(24, 20, 18, 14, 9, 5)",
     "return",
     5
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     5
   )}"  class="levelBtn">5</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(30, 26, 20, 18, 11, 6)",
     "return",
     6
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     6
   )}"  class="levelBtn">6</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(38, 30, 25, 20, 13, 7)",
     "return",
     7
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     7
   )}"  class="levelBtn">7</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(44, 38, 32, 28, 15, 8)",
     "return",
     8
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     8
   )}"  class="levelBtn">8</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(50, 44, 40, 36, 19, 9)",
     "return",
     9
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     9
   )}"  class="levelBtn">9</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(54, 48, 42, 39, 23, 10)",
     "return",
     10
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     10
   )}"  class="levelBtn">10</button>
-  <button onclick="${lC(
+  <button onclick="${lV(
     "showLevelDifficulties(56, 50, 47, 43, 26, 11)",
     "return",
     11
-  )}"  style="${lC(
+  )}"  style="${lV(
     enablebgcolor,
     disablebgcolor,
     11
   )}"  class="levelBtn">11</button>
   `;
+  // end of the levels viwer
 }
 
+
+// levels difficulties popup
 function showLevelDifficulties(qc, et, mt, ht, h, l) {
+
+  //make the div visible
   document.querySelector(".levelDiffcultyPopUp").style = `
     display: flex;
   `;
 
+  // put the html coded inside the div, (3 levels, unique colors), when you click on a diffculity button the game will start with your diffculity choise
   document.querySelector(".levelDiffcultyPopUp").innerHTML = `
   <div class="topOfLDPU">
       <h1 class="topH1LevelNammer">Level ${l}</h1>
@@ -513,11 +521,17 @@ function showLevelDifficulties(qc, et, mt, ht, h, l) {
   </div>
   `;
 }
+
+// to hide the level difficulties popup :
 function hideLevelDiffcultyPopUp() {
+
+  // first keep it flex because we dont want the elements to go another place, then decrease the opacity to make a transtion
   document.querySelector(".levelDiffcultyPopUp").style = `
   display:flex;
   opacity: 0;
   `;
+
+  // after the transtion ends and the opacity is 0, make the display none to not click it be accedint while its not visible
   setTimeout(() => {
     document.querySelector(".levelDiffcultyPopUp").style = `
   display:none;
@@ -525,28 +539,43 @@ function hideLevelDiffcultyPopUp() {
   }, 500);
 }
 
+
+// to return to main menu
 function showMainMenu() {
+  // if any of the popups is visible, hide them
   try {
     document.querySelector(".winOrLosePopUp").style = "display: none;";
   } catch {
     (err) => console.log(err);
   }
-  topDiv.innerHTML = `<h1 onclick="showMainMenu()" class="topName">Find my breed</h1>`;
+  try {
+    document.querySelector(".levelDiffcultyPopUp").style = "display: none;";
+  } catch {
+    (err) => console.log(err);
+  }
+
+  // make it in column for better view
   containerEl.style = "flex-direction: column;";
-  containerEl.innerHTML = `
-    <button onclick="showLevels()" class="mainMenuBtn playBtn">Play</button>
-    <button onclick='showSettings()' class="mainMenuBtn">Settings</button>
-    <a href="https://haidarkhalid.github.io/portfolio" target="_blank" class="mainMenuBtn">Developer</a> 
-  `;
+  // show the defualt html code for the main menu
+    topDiv.innerHTML = `<h1 onclick="showMainMenu()" class="topName">Find my breed</h1>`;
+    containerEl.innerHTML = `
+      <button onclick="showLevels()" class="mainMenuBtn playBtn">Play</button>
+      <button onclick='showSettings()' class="mainMenuBtn">Settings</button>
+      <a href="https://haidarkhalid.github.io/portfolio" target="_blank" class="mainMenuBtn">Developer</a> 
+      <p class="copyRights">HaidarKhalid ©</p>
+    `;
+
+  // if any of the timeouts and interevals is on make them off  
   clearInterval(clockSound);
   clearTimeout(flipCardsDelay);
 }
-
-let darkLightModeInputValue = 0;
-let sfxModeInputValue = 1;
+// show settings function 
 function showSettings() {
-  topDiv.innerHTML = `<h1 onclick="showMainMenu()" class="topName">Find my breed</h1>`;
+  // make it in column for better view
   containerEl.style = "flex-direction: column;";
+
+  // show the defualt html code for the settings menu
+  topDiv.innerHTML = `<h1 onclick="showMainMenu()" class="topName">Find my breed</h1>`;
   containerEl.innerHTML = `    
     <div class="settingDiv">
       <h2>Dark mode</h2>
@@ -561,10 +590,9 @@ function showSettings() {
     </div>`;
 }
 
-/* Dark/Light mode */
-let root = document.querySelector(":root");
-let rootStyles = getComputedStyle(root);
+// dark or light mode function 
 function darkLightModeFun() {
+  // if the value of the input is 1 that means its "on" so change to dark mode 
   if (document.querySelector(".darkLightModeInp").value == 1) {
     darkLightModeInputValue = 1;
     root.style.setProperty("--main", "#272625");
@@ -572,6 +600,7 @@ function darkLightModeFun() {
     root.style.setProperty("--textColorMain", "#fff");
     root.style.setProperty("--textColorMainRGBA", "rgba(0, 0, 0,0.5)");
     root.style.setProperty("--blendMode", "soft-light");
+    // if the value of the input is 0 that means its "off" so change to light mode 
   } else {
     darkLightModeInputValue = 0;
     root.style.setProperty("--main", "#fcf3e8");
@@ -582,18 +611,26 @@ function darkLightModeFun() {
   }
 }
 
+
+//sfx mode function
 function changeSfxMode() {
+  // if the value of the input is 0 that means its "off" so turn off sfx 
   if (document.querySelector(".sfxModeInp").value == 0) {
     sfxMode = false;
     sfxModeInputValue = 0;
+    // if the value of the input is 1 that means its "on" so turn on sfx 
   } else {
     sfxMode = true;
     sfxModeInputValue = 1;
   }
 }
 
+
+// to delete the old save game, set back the saveGameLevel in the local storage to be '1'
 function deleteSaveGameFn() {
-  if (window.confirm("You are going to delete you'r save game!")) {
+  if (window.confirm("You are going to delete your save game!")) {
     localStorage.setItem("saveGameLevel", 1);
   }
 }
+
+/* The end, all created by HaidarKhalid© */

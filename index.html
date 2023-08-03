@@ -1,3 +1,5 @@
+<!-- HaidarKhalid© -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,46 +8,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Find my breed</title>
     <script src="script.js" defer></script>
+    <script>
+      
+let imagesLoadedQuantitiy = 0
+function imagesLoaded(loaded) {
+  if (loaded) ++imagesLoadedQuantitiy
+  if (!loaded) showMainMenu()
+  if (imagesLoadedQuantitiy >= 28) showMainMenu() 
+}
+    </script>
   </head>
   <body>
+    <!-- top div for name and else -->
     <div class="topDiv">
-      <h1 onclick="showMainMenu()" class="topName">Find my breed</h1>
-    </div>
-    <div id="container">
-      <button onclick="showLevels()" class="mainMenuBtn playBtn">
-        Play
-      </button>
-      <button onclick="showSettings()" class="mainMenuBtn">Settings</button>
-      <a
-        href="https://haidarkhalid.github.io/portfolio"
-        target="_blank"
-        class="mainMenuBtn"
-        >Developer</a
-      >
-      
-    </div>
-    <div class="levelDiffcultyPopUp">
-        <!-- <div class="topOfLDPU">
-            <h1 class="topH1LevelNammer">Level 1</h1>
-            <button class="hideLDPUBtn" onclick="hideLevelDiffcultyPopUp()">x</button>
-        </div>
-        <div class="bottomOfLPDU">
-            <button onclick="putCards( cq , wt , h )" class="difficultyBtn" style="background-color: rgb(3, 216, 3);">Easy</button>
-            <button onclick="putCards( cq , wt , h )" class="difficultyBtn" style="background-color: rgb(216, 141, 3);">Medium</button>
-            <button onclick="putCards( cq , wt , h )" class="difficultyBtn" style="background-color: rgb(202, 0, 0);">Hard</button>
-        </div> -->
-      </div>
-    <div class="winOrLosePopUp">
-      <!-- <h1>You lost!</h1>
-      <div class="winOrLosePopUpButtonsDiv">
-        <button onclick="putCards(cardsQuantity, waitTime, hearts)">Restart</button>
-        <button onclick="showMainMenu()">Main Manu</button>
-      </div> -->
     </div>
 
+    <!-- main div -->
+    <div id="container">
+      <iconify-icon icon="eos-icons:three-dots-loading" width="100"></iconify-icon>
+      <h1>Loading</h1>
+    </div>
+
+    <!-- popups divs -->
+    <div class="levelDiffcultyPopUp">
+      </div>
+    <div class="winOrLosePopUp">
+    </div>
+
+    <!-- images div to load them before entering website -->
+    <div class="imagesContainer">
+      <img src="media/images/types/1.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/2.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/3.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/4.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/5.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/6.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/7.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/8.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/9.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/10.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/11.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/12.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/13.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/14.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/15.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/16.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/17.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/18.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/19.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/20.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/21.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/22.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/23.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/24.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/25.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/26.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/27.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+      <img src="media/images/types/28.png" onload="imagesLoaded(true)" onerror="imagesLoaded(false)">
+    </div>
+
+
+    <!-- SFXs -->
     <audio src="media/sfx/flipSfx.mp3" hidden class="flipCardSfx"></audio>
     <audio src="media/sfx/correctSfx.mp3" hidden class="correctCardSfx"></audio>
     <audio src="media/sfx/win.mp3" hidden class="winSfx"></audio>
     <audio src="media/sfx/ticking-clock.mp3" hidden class="clockSfx"></audio>
+  
+  <!-- iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
   </body>
 </html>
