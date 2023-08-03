@@ -19,18 +19,6 @@ function imagesLoaded(loaded) {
       try {let containerEl = document.getElementById("container");}
       catch {console.log("decl.")}
 function showMainMenu() {
-  // if any of the popups is visible, hide them
-  try {
-    document.querySelector(".winOrLosePopUp").style = "display: none;";
-  } catch {
-    (err) => console.log(err);
-  }
-  try {
-    document.querySelector(".levelDiffcultyPopUp").style = "display: none;";
-  } catch {
-    (err) => console.log(err);
-  }
-
   // make it in column for better view
   document.getElementById("container").style = "flex-direction: column;";
   // show the defualt html code for the main menu
@@ -42,9 +30,6 @@ function showMainMenu() {
       <p class="copyRights">HaidarKhalid ©</p>
     `;
 
-  // if any of the timeouts and interevals is on make them off  
-  clearInterval(clockSound);
-  clearTimeout(flipCardsDelay);
 }
     </script>
   </head>
