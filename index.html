@@ -16,7 +16,8 @@ function imagesLoaded(loaded) {
   if (!loaded) showMainMenu()
   if (imagesLoadedQuantitiy >= 28) showMainMenu() 
 }
-      let containerEl = document.getElementById("container");
+      try {let containerEl = document.getElementById("container");}
+      catch {console.log("decl.")}
 function showMainMenu() {
   // if any of the popups is visible, hide them
   try {
