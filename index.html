@@ -18,6 +18,7 @@ function imagesLoaded(loaded) {
 }
       try {let containerEl = document.getElementById("container");}
       catch {console.log("decl.")}
+      console.log(containerEl)
 function showMainMenu() {
   // if any of the popups is visible, hide them
   try {
@@ -32,10 +33,10 @@ function showMainMenu() {
   }
 
   // make it in column for better view
-  containerEl.style = "flex-direction: column;";
+  document.getElementById("container").style = "flex-direction: column;";
   // show the defualt html code for the main menu
     topDiv.innerHTML = `<h1 onclick="showMainMenu()" class="topName">Find my breed</h1>`;
-    containerEl.innerHTML = `
+    document.getElementById("container").innerHTML = `
       <button onclick="showLevels()" class="mainMenuBtn playBtn">Play</button>
       <button onclick='showSettings()' class="mainMenuBtn">Settings</button>
       <a href="https://haidarkhalid.github.io/portfolio" target="_blank" class="mainMenuBtn">Developer</a> 
